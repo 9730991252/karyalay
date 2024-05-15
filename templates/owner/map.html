@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+{% include 'include/alert.html' %}
+{% include 'include/owner_menu.html' %}
+
+
+<style>
+    .btn{
+        margin-top: 10px;
+    }
+    
+    </style>
+
+
+<div class="btn">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Add_Map">
+        Map Code
+      </button>
+    <br>
+    
+    </div>
+
+
+
+
+    <!-- Add Modal -->
+<div class="modal fade" id="Add_Map" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Map Embed Code</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST"> {% csrf_token %}
+                <br>
+                
+                <div class="mb-3">
+                    <label for="map_code">Add Map Code </label>
+                    <br>
+                  <input  name="map_code" id="map_code" placeholder="Enter Map Embed Code" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" name="Add_Map_Code"> Add Map Code </button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock content %}

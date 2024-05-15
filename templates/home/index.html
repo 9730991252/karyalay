@@ -1,0 +1,114 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% include 'include/nav_bar.html' %}
+{% include 'include/alert.html' %}
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+  height: 100%;
+  width: 100%;
+  background-color: rgb(252, 247, 247);
+  
+}
+
+.box{
+    margin-top: 20px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    text-align: center;
+    justify-content: center;    
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+ 
+}
+.karyalay_name{
+    font-size: 30px;
+    font-weight: 800;
+    color: rgb(253, 53, 53);
+}
+.nearby_location{
+background-color: bisque;
+width: 80%;
+margin-left: auto;
+margin-right: auto;
+padding: 5px;
+border-radius: 10px;
+font-weight: 600;
+
+}
+.pin_code{
+    display: flex;
+    justify-content: center;
+}
+.owner_name_mobil{
+    margin-left: 35px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.address{
+    margin-top: 10px;
+}
+
+</style>
+
+<div class="container">
+        <input class="form-control mt-2"  placeholder="Search Mangal Karyalay ..." id="input_words" oninput=" search_karyalay()">
+</div>
+<div >
+
+    <div id="result">
+        
+        {% for k in k %}
+        
+        <div class="box" >
+            <div class="karyalay_name" href="{% url 'karyalay_detail' k.id %}"> {{k.karyalay_name_marathi}} </div>
+            <div class="nearby_location">{{k.nearby_location_marathi}}</div>
+            <div class="address">{{k.address_marathi}}</div>
+            <div class="pin_code">{{k.pin_code}}</div>
+            <div class="owner_name_mobil">
+                <div>{{k.owner_name_marathi}}</div>
+                <div>{{k.mobile}}</div>
+            </div>
+    
+            <div><a href="{% url 'karyalay_detail' k.id %}" class="btn btn-primary form-control mt-3">Select</a></div>
+        </div>
+        {% endfor %}
+</div>
+
+
+
+
+</div>
+{% block script %}
+<script>
+   
+ function search_karyalay(){
+    var words = document.getElementById('input_words').value;
+    $.ajax({
+        url: "{% url 'karyalay_filter' %}",
+        method: "GET",
+        data:{
+            words:words,
+      
+            },
+            success: function(res){
+                $("#result").html(res.data);
+                //document.getElementById('#result').html(res.data);
+            }
+    })
+ }
+
+
+</script>
+
+{% endblock script %}
+{% endblock content %}

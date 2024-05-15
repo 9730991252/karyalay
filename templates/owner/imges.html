@@ -1,0 +1,106 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+{% include 'include/alert.html' %}
+{% include 'include/owner_menu.html' %}
+<style>
+    .btn{
+        margin-top: 10px;
+    }
+    
+    </style>
+
+
+<div class="btn">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Add_Images">
+        Add Karalay Imeges
+      </button>
+    <br>
+    
+    </div>
+
+<div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for i in i %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{% if i.image_1.url != '' %}<img src='{{i.image_1.url}}' alt="" height="60px" >{% endif %}</td>
+            <td>{% if i.image_2.url != '' %}<img src='{{i.image_2.url}}' alt="" height="60px" >{% endif %}</td>
+            <td>{% if i.image_3.url != '' %}<img src='{{i.image_3.url}}' alt="" height="60px" >{% endif %}</td>
+            <td>{% if i.image_4.url != '' %}<img src='{{i.image_4.url}}' alt="" height="60px" >{% endif %}</td>
+            <td>{% if i.image_5.url != '' %}<img src='{{i.image_5.url}}' alt="" height="60px" >{% endif %}</td>
+            <td>@mdo</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<div>
+
+
+
+</div>
+
+   <!-- Add Imeges -->
+<div class="modal fade" id="Add_Images" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <br>
+                
+                <div class="mb-3">
+                    <label for="image_1" class="form-label">Image 1 </label>
+                    <input type="file" name="image_1" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="image_2" class="form-label">Image 2 </label>
+                    <input type="file" name="image_2" required>
+                  </div>
+
+
+                  <div class="mb-3">
+                    <label for="image_3" class="form-label">Image 3 </label>
+                    <input type="file" name="image_3" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="image_4" class="form-label">Image 4 </label>
+                    <input type="file" name="image_4" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="image_5" class="form-label">Image 5 </label>
+                    <input type="file" name="image_5" required>
+                  </div>
+
+                <br>
+                <button type="submit" class="btn btn-primary" name="Add_Images"> Add Imeges </button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+ 
+{% endblock content %}

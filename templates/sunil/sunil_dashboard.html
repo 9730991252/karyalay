@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% include 'include/nav_bar.html' %}
+
+
+
+{% include 'include/alert.html' %}
+<!-- Button trigger modal -->
+<a  class="btn btn-primary" href="{% url 'add_karyalay' %}">
+   Add New Karyalay 
+  </a>
+
+{% endblock content %}

@@ -1,0 +1,422 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% include 'include/nav_bar.html' %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+    }
+    .nearby_location{
+        background-color: rgb(86, 255, 235);
+        height: 35px;
+        width: fit-content;
+        padding: 20px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    .owner_name,.owner_mobil{
+        
+        height: 35px;
+        width: fit-content;
+        padding: 20px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .owner_name{
+        background-color: rgb(250, 179, 108);
+    }
+    .owner_mobil{
+        background-color: rgba(140, 255, 249, 0.906);
+    }
+    .karyalay_box{
+        margin-top: 5px;
+        width: 95%;
+        padding: 20px; 
+        text-align: center;
+        justify-content: center;    
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+     
+    }
+    .karyalay_name{
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+        color: rgb(255, 0, 0);
+    }
+    
+    .pin_code{
+        display: flex;
+        justify-content: center;
+    }
+    .owner_name_mobil{
+        margin-left: 35px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .address{
+        margin-top: 10px;
+    }
+    .calendar{
+        width:400px;
+      
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgb(188, 239, 255);
+        box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.2);
+    }
+    .month{
+         width: 100%;
+         background-color: #ffb76e;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         text-align: center;
+        padding: 10px 20px;
+    }
+    .weekends{
+        background-color: #ffa448;
+        display: flex;
+        padding: 5px 0px ;
+        
+    }
+.weekends div{
+    width: 14.28%;
+    text-align: center;
+    font-weight: 700;
+}
+.days{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 10px 0px;
+}
+.days div{
+    width: 14.28%;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    font-weight: 500;
+    height: 50px;
+    overflow: hidden;
+}
+
+.today{
+    background-color: #ff9e3d;
+}
+#parti_name{
+    font-size: 11px ;
+    background-color: red ;
+    width: 100% ;
+    color: yellow ;
+    margin-top: -10px ;
+}
+.prev ,.next{
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 23px;
+}
+.prev_date{
+    color: rgb(195, 197, 198);
+}
+.active{
+    background-color: #fdd4ac;
+    border: 3px solid yellow;
+    
+}
+
+.image_slide{
+    margin-top: 50px;
+}
+
+
+main{
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    box-shadow: 0px 0px 1px gray;
+    background-color: aqua;
+    position: relative;
+    overflow: hidden;
+
+  }
+
+.video{
+    background-color: aqua;
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    margin-top: 50px;
+}
+.video iframe{
+    width: 400px;
+    height: 300px;
+}
+.video h3{
+        background-color: rgb(255, 0, 0);
+        height: 20px;
+        color: #fff;
+        width: fit-content;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 600;
+        margin-left: auto;
+}
+.slide{
+    width: 100%;
+    height: 100%;
+    transition: 1s;
+    position: absolute;
+}
+.goprev{
+    height: 50px;
+    width: 30px;
+    position: absolute;
+    margin-top: 100px;
+    left: 1px;
+
+}
+
+.gonext{
+    height: 50px;
+    width: 30px;
+    position: absolute;
+    margin-top: 100px;
+    right: 1px;
+
+}
+
+
+
+
+.btn_d{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 15px;
+
+}
+    </style>
+
+    <div>
+        <a class="btn btn-success mt-2" href="/">All Karyalay</a>
+    </div>
+<div class="karyalay_box" >
+    <input type="hidden" id="karyalay_id" value="{{k.id}}">
+    <div class="karyalay_name" href="{% url 'karyalay_detail' k.id %}"> {{k.karyalay_name_marathi}} </div>
+    <div class="nearby_location">{{k.nearby_location_marathi}}</div>
+    <div class="address">{{k.address_marathi}}</div>
+    <div class="pin_code">Pin - {{k.pin_code}}</div>
+    <div class="owner_name_mobil">
+        <div class="owner_name" >{{k.owner_name_marathi}}</div>
+        <div class="owner_mobil" >{{k.mobile}}</div>
+    </div>
+    <div><a href="https://api.whatsapp.com/send?phone=&text={{k.karyalay_name_marathi}}  http://www.bookkaryalay.com/{{k.id}}" target="_blank">Whatsapp Share</a></div>
+</div>
+
+<div>
+    <!-- calendar vidio link -> https://youtu.be/B6a068z8Rkk?si=2abUwVyfLOaKLkgG -->
+    <div  class="calendar" >
+        <div class="month">
+            <div class="prev" onclick="movemanth('prev')"><span>&#10094</span></div>
+            <div class="">
+                <h2 id="month">June</h2>
+                <p id="date_str"></p>
+            </div>
+            <div class="next" onclick="movemanth('next')"><span>&#10095</span></div>
+        </div>
+        <div class="weekends">
+            <div>रवी</div>
+            <div>सोम</div>
+            <div>मंगळ</div>
+            <div>बुध</div>
+            <div>गुरु</div>
+            <div>शुक्र</div>
+            <div>शनी</div>
+        </div>
+        <div class="days">
+
+        </div>
+
+    </div>
+</div>
+
+<div class="image_slide" >
+        {% if i|length < 1 %}
+        No Images
+        {% else %}
+       
+    <main> {% for i in i %}
+        <img src="{{i.image_1.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_2.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_3.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_4.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_5.url}}" class="slide" alt="Karyalay Images">
+        <button class="goprev" onclick="goprev()">&#10094</button>
+        <button class="gonext" onclick="gonext()">&#10095</button>
+        {% endfor %}
+    </main>
+    {% endif %}
+
+</div>
+
+<div class="video">
+    <iframe src="https://www.youtube.com/embed/TeZ9y70Ea04?si=N1LlNYgpKb9jVNWA&amp;controls=0&amp;start=4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h3>Live</h3>
+</div>
+
+
+<div class="map" >
+
+    {{m.map_code | safe }}
+
+</div>
+
+
+<script>
+
+
+
+    var dt = new Date();
+    function renderdate(){
+   dt.setDate(1);
+    var day = dt.getDay();
+   
+    var today= new Date();
+    var enddate= new Date(dt.getFullYear(),dt.getMonth() + 1 ,0).getDate();
+    var prevdate= new Date(dt.getFullYear(),dt.getMonth() ,0).getDate();
+ 
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    document.getElementById('date_str').innerHTML=dt.toDateString();
+    document.getElementById('month').innerHTML=months[dt.getMonth()];
+    var cells = "";
+    for ( x = day; x>0; x--){
+        cells+= "<div class='prev_date'>" + ( prevdate - x + 1) + "</div>";
+            }
+    for ( i = 1; i <= enddate; i++){
+        if(i == today.getDate() && dt.getMonth() == today.getMonth() ){
+            cells+= "<div class='active' id="+ "book_d" + i +">" + i + "</div>";     
+        }else{
+            cells+='<div id='+ 'book_d' + i +'>' + i + '</div>';
+
+        }
+    }
+    document.getElementsByClassName('days')[0].innerHTML=cells;
+}
+function movemanth(para){
+    if(para == 'next' &  dt.getFullYear() < 2026){
+        dt.setMonth(dt.getMonth() + 1 );
+    }
+    else if(para == 'prev' & dt.getFullYear() > 2023  ){
+        dt.setMonth(dt.getMonth() - 1 );
+
+    }renderdate()
+    booked_date()
+    
+    }
+
+renderdate()
+
+
+
+
+
+booked_date()
+
+function booked_date(){
+    var k_id = document.getElementById('karyalay_id').value;
+    var y = dt.getFullYear();
+    var m = dt.getMonth()+1;
+    //console.log(m)
+    
+    $.ajax({
+        url: "{% url 'booked_date' %}",
+        method: "GET",
+        data:{
+            k_id:k_id,
+            y:y,
+            m:m,
+      
+            },
+            success: function(data){
+                for(let key=0; key<data.book.length;key++){
+                    i=data.book[key].event_date
+                    nd=new Date(i)
+                    nb=nd.getDate()
+                
+                    document.getElementById('book_d'+nb).innerHTML=`<div id='parti_name'>${nb}<br><h>${data.book[key].parti_name}<h></div>`;
+
+                }
+
+            }
+    })
+ }
+
+
+
+
+
+//////////////////////////////////
+const slides = document.querySelectorAll(".slide")
+var counter=0;
+
+slides.forEach((slide,index)=>{
+    slide.style.left = `${index * 100}%`
+})
+
+const gonext =()=>{
+    counter++;
+    if(counter == slides.length){
+        counter = 0;
+    }
+    slideimage()
+}
+const goprev =()=>{
+    counter--;
+    if(counter == -1){
+        counter = slides.length-1;
+    }
+    slideimage()
+}
+
+
+
+
+const slideimage = () =>{
+    slides.forEach((slide)=>{
+        console.log(slide)
+        slide.style.transform =`translateX(-${counter * 100}%)`
+    })
+}
+
+
+
+
+
+
+
+</script>
+
+{% endblock content %}

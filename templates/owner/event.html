@@ -1,0 +1,101 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+{% include 'include/alert.html' %}
+{% include 'include/owner_menu.html' %}
+
+<style>
+.btn{
+    margin-top: 10px;
+}
+
+</style>
+<div class="btn">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Add_New_Event">
+    Add New Event
+  </button>
+<br>
+
+</div>
+
+
+
+
+
+
+<div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in e %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{e.event_name}}</td>
+        <td>{{e.event_date}}</td>
+        <td>@mdo</td>
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="Add_New_Event" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST"> {% csrf_token %}
+                <br>
+                
+                <div class="mb-3">
+                    <label for="event_name">Event Name</label>
+                  <input  name="event_name" id="event_name" placeholder="Enetr Event Name" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="parti_name">Parti Name</label>
+                  <input  name="parti_name" id="parti_name" placeholder="Parti Name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="date">Select Date</label>
+                    <input type="date" name="event_date" id="date"  class="form-control"  required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" name="Add_Event"> Add Event </button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+{% endblock content %}
