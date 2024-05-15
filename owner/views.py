@@ -96,7 +96,7 @@ def images(request):
                 image_5 = image_5 ,
             ).save()
 
-            return redirect('/owner/images')
+            return redirect('/owner/images/')
     
         context={
             'k':k,
