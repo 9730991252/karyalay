@@ -526,8 +526,8 @@ border-radius: 50%;
     var prevdate= new Date(dt.getFullYear(),dt.getMonth() ,0).getDate();
  
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    document.getElementById("date_str").innerHTML = dt.toDateString();
-    //document.getElementById('date_str').innerHTML=dt.toDateString();
+   
+    document.getElementById('date_str').innerHTML=dt.toDateString();
     document.getElementById('month').innerHTML=months[dt.getMonth()];
     var cells = "";
     for ( x = day; x>0; x--){

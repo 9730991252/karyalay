@@ -20,7 +20,7 @@ def index(request):
 
 def login(request):
     if request.session.has_key('owner_mobile'):
-        return redirect('/owner/owner_dashboard')
+        return redirect('/owner/owner_dashboard/')
     if 'Login' in request.POST:
         num = request.POST.get('number')
         pin = request.POST.get('pin')
