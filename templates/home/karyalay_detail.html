@@ -147,7 +147,7 @@ font-size: 23px;
 
 main{
     width: 400px;
-    height: 300px;
+    height: 250px;
     margin: auto;
     box-shadow: 0px 0px 1px gray;
     background-color: aqua;
@@ -356,12 +356,13 @@ font-size: 23px;
 *{margin: 0; padding: 0;}
 .image_slide{
     margin-top: 50px;
+
 }
 
 
 main{
     width:95%;
-    height: 300px;
+    height: 200px;
     margin: auto;
     box-shadow: 0px 0px 1px gray;
     background-color: aqua;
@@ -525,7 +526,8 @@ border-radius: 50%;
     var prevdate= new Date(dt.getFullYear(),dt.getMonth() ,0).getDate();
  
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    document.getElementById('date_str').innerHTML=dt.toDateString();
+    document.getElementById("date_str").innerHTML = dt.toDateString();
+    //document.getElementById('date_str').innerHTML=dt.toDateString();
     document.getElementById('month').innerHTML=months[dt.getMonth()];
     var cells = "";
     for ( x = day; x>0; x--){

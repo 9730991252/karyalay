@@ -25,7 +25,7 @@ def event(request):
         k=Karyalay.objects.filter(mobile=owner_mobile).first()
         if k:
             k=Karyalay.objects.get(mobile=owner_mobile)
-            e=Event.objects.filter().order_by('event_date')
+            e=Event.objects.filter(karyalay_id=k.id).order_by('event_date')
         if 'Add_Event'in request.POST:
             event_name = request.POST.get('event_name')
             parti_name = request.POST.get('parti_name')
@@ -36,7 +36,7 @@ def event(request):
                 parti_name=parti_name,
                 event_date=event_date,
                 ).save()
-            return redirect('/owner/event')
+            return redirect('/owner/event/')
     
         context={
             'k':k,

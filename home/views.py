@@ -9,7 +9,7 @@ from django.db.models import Q
 
 def index(request):
     context=''
-    k=Karyalay.objects.all()
+    k=Karyalay.objects.all().order_by('karyalay_name_eglish')
     context={
         'k':k
     }
