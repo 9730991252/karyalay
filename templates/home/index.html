@@ -57,11 +57,27 @@ font-weight: 600;
 .address{
     margin-top: 10px;
 }
-
+.marquee{
+    margin-top: 10px;
+    height: 30px;
+    color: #fff;
+    background: rgb(108, 108, 255);
+    border-radius: 10px;
+   
+}
+marquee h6{
+    padding-top: 5px;
+    font-weight: 500;
+}
+.search-box{
+    border: 2px solid rgb(0, 191, 255);
+}
 </style>
-
+<div class="marquee">
+<marquee scrollamount="4" ><h6>या सर्च बॉक्स मध्ये गावा नुसार , नावा नुसार , पिन कोड नुसार कार्यालय सर्च होतील.</h6></marquee>
+</div>
 <div class="container">
-        <input class="form-control mt-2"  placeholder="Search Mangal Karyalay ..." id="input_words" oninput=" search_karyalay()">
+        <input class="form-control mt-2 search-box"  placeholder="Search Mangal Karyalay ..." id="input_words" oninput=" search_karyalay()">
 </div>
 <div >
 
