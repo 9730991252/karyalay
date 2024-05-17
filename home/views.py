@@ -79,3 +79,6 @@ def booked_date(request):
     return JsonResponse({'book':book})
 
 
+def video(request):
+    return render(request, 'home/video.html')
+
