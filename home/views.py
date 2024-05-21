@@ -56,12 +56,16 @@ def karyalay_detail(request,id):
     k=Karyalay.objects.get(id=id)
     i=Images.objects.filter(karyalay_id=id)
     m=Map.objects.filter(karyalay_id=id).first()
+    owner_mobile=''
     if m:
         m=Map.objects.get(karyalay_id=id)
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
     context={
         'k':k,
         'i':i,
         'm':m,
+        'owner_mobile':owner_mobile
     }
     return render(request,'home/karyalay_detail.html',context )
 
