@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,8 +71,8 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'karyalay.wsgi.application'
-ASGI_APPLICATION = 'karyalay.asgi.application'
+WSGI_APPLICATION = 'karyalay.wsgi.application'
+#ASGI_APPLICATION = 'karyalay.asgi.application'
 
 CHANNEL_LAYERS = {
     "default": {
