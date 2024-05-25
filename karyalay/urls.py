@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('home.urls')),
     path('sunil/', include('sunil.urls')),
     path('owner/', include('owner.urls')),
+    path('camera/', include('camera.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

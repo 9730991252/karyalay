@@ -1,0 +1,147 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+{% include 'include/alert.html' %}
+{% include 'include/owner_menu.html' %}
+
+
+<style>
+    .btn{
+        margin-top: 10px;
+    }
+    
+    </style>
+
+{% if u|length < 1 %}
+<div class="btn">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Add_Map">
+        Add Url
+      </button>
+    <br>
+  </div>
+  {% endif %}
+
+
+
+
+    <!-- Add Modal -->
+<div class="modal fade" id="Add_Map" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">YouTube Url</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST"> {% csrf_token %}
+                <br>
+                
+                <div class="mb-3">
+                    <label for="url_1">Url 1 </label>
+                    <br>
+                  <input  name="url_1" id="url_1" placeholder="Enter YouTube Url 1" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="url_2">Url 2 </label>
+                    <br>
+                  <input  name="url_2" id="url_2" placeholder="Enter YouTube Url 2" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary" name="Add_Url"> Save </button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% for u in u %}
+
+<div><strong class="bg-info p-1"> Url 1</strong> {{u.url_1}}</div>
+<div class="btn">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Edit_1{{u.id}}">
+      Edit Url 1
+    </button>
+  <br>
+</div>
+<hr>
+<div><strong class="bg-info p-1">Url 2</strong> {{u.url_2}}</div>
+
+<div class="btn">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Edit_2{{u.id}}">
+      Edit Url 2
+    </button>
+  <br>
+</div>
+
+    <!-- Edit Url 1 -->
+    <div class="modal fade" id="Edit_1{{u.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">YouTube Url</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form method="POST"> {% csrf_token %}
+                <input type="hidden" name="url_id" value="{{u.id}}" >
+                  <br>
+                  
+                  <div class="mb-3">
+                      <label for="url_1">Url 1 </label>
+                      <br>
+                    <input type="url" name="url_1" id="url_1" placeholder="Enter YouTube Url 1" class="form-control"  required>
+                  </div>
+                  
+
+                  <button type="submit" class="btn btn-primary" name="Edit_Url_1"> Save </button>
+                </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Url 2 -->
+    <div class="modal fade" id="Edit_2{{u.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">YouTube Url</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST"> {% csrf_token %}
+                <input type="hidden" name="url_id" value="{{u.id}}" >
+                  <br>
+                  
+                  <div class="mb-3">
+                      <label for="url_2">Url 2 </label>
+                      <br>
+                    <input  name="url_2" id="url_2" placeholder="Enter YouTube Url 2" class="form-control"  required>
+                  </div>
+                  
+
+                  <button type="submit" class="btn btn-primary" name="Edit_Url_2"> Save </button>
+                </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endfor %}
+
+
+{% endblock content %}

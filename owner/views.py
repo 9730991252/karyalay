@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
 from sunil.models import *
 from owner.models import *
-
+from camera.models import *
 # Create your views here.
 def owner_dashboard(request):
     if request.session.has_key('owner_mobile'):
@@ -47,6 +47,48 @@ def event(request):
     else:
         return redirect('/login')
     
+
+def video(request):
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
+        context={}
+        k=Karyalay.objects.filter(mobile=owner_mobile).first()
+        u=You_Tube.objects.filter(karyalay_id=k.id)
+        if k:
+            k=Karyalay.objects.get(mobile=owner_mobile)
+        if 'Add_Url' in request.POST:
+            url_1 = request.POST.get('url_1')
+            url_2 = request.POST.get('url_2')
+            You_Tube(
+                karyalay_id=k.id,
+                url_1=url_1,
+                url_2=url_2
+                ).save()
+            return redirect('/owner/video/')
+        elif 'Edit_Url_1' in request.POST:
+            url_id = request.POST.get('url_id')
+            url_1 = request.POST.get('url_1')
+            u_n=You_Tube.objects.get(id=url_id)
+            u_n.url_1=url_1
+            u_n.save()
+            return redirect('/owner/video/')
+        elif 'Edit_Url_2' in request.POST:
+            url_id = request.POST.get('url_id')
+            url_2 = request.POST.get('url_2')
+            u_n=You_Tube.objects.get(id=url_id)
+            u_n.url_2=url_2
+            u_n.save()
+            return redirect('/owner/video/')
+    
+        context={
+            'k':k,
+            'u':u
+            }
+        
+        return render(request,'owner/video.html',context)
+    else:
+        return redirect('/login')
+
 
 def map(request):
     if request.session.has_key('owner_mobile'):
@@ -107,6 +149,13 @@ def images(request):
     else:
         return redirect('/login')
     
+
+
+
+
+
+
+
 
 def woner_logout(request):
     del  request.session['owner_mobile']

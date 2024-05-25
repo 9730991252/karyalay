@@ -11,7 +11,7 @@
     
     </style>
 
-
+{% if i|length < 1 %}
 <div class="btn">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Add_Images">
@@ -20,6 +20,8 @@
     <br>
     
     </div>
+
+    {% endif %}
 
 <div>
     <table class="table">

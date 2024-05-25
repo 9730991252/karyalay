@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib import messages 
 from sunil.models import *
 from owner.models import *
+from camera.models import *
 from django.http import *
 from django.template.loader import render_to_string
 from django.db.models import Q
@@ -56,6 +57,7 @@ def karyalay_detail(request,id):
     k=Karyalay.objects.get(id=id)
     i=Images.objects.filter(karyalay_id=id)
     m=Map.objects.filter(karyalay_id=id).first()
+    u=You_Tube.objects.filter(karyalay_id=id)
     owner_mobile=''
     if m:
         m=Map.objects.get(karyalay_id=id)
@@ -65,7 +67,8 @@ def karyalay_detail(request,id):
         'k':k,
         'i':i,
         'm':m,
-        'owner_mobile':owner_mobile
+        'owner_mobile':owner_mobile,
+        'u':u
     }
     return render(request,'home/karyalay_detail.html',context )
 
@@ -82,7 +85,4 @@ def booked_date(request):
         book=list(b)
     return JsonResponse({'book':book})
 
-
-def video(request):
-    return render(request, 'home/video.html')
 
