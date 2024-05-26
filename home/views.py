@@ -91,3 +91,29 @@ def booked_date(request):
     return JsonResponse({'book':book})
 
 
+
+def check_date(request):
+    if request.method == 'GET':
+        k_id = request.GET['k_id']
+        k=Karyalay.objects.get(id=k_id)
+        y = request.GET['y']
+        m = request.GET['m']
+        d = request.GET['d']
+        d=int(d)
+        m=int(m)
+        if m < 10:
+            m=f'0{m}'
+        if d < 10:
+            d=f'0{d}'
+        d=f"{y}-{m}-{d}"
+        e=Event.objects.values().filter(event_date=d,karyalay_id=k_id,status=1)
+        print(e)
+        context={
+            'k':k,
+            'e':e,
+            'd':d
+        }
+        t = render_to_string('ajax/check_event.html', context)
+    return JsonResponse({'data': t})
+
+

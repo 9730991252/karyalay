@@ -107,8 +107,12 @@
     font-weight: 500;
     height: 50px;
     overflow: hidden;
+    cursor: pointer;
 }
-
+.days div:hover {
+    background-color: #ffffff;
+    border-radius: 50%;
+}
 .today{
     background-color: #ff9e3d;
 }
@@ -532,11 +536,13 @@ border-radius: 50%;
     </div>
     <div><a href="https://api.whatsapp.com/send?phone=&text={{k.karyalay_name_marathi}} , {{k.nearby_location_marathi}}, {{k.address_marathi}} बुकिंग माहितीसाठी 👉 https://www.bookkaryalay.com/karyalay_detail/{{k.id}}/" target="_blank">Whatsapp Share</a></div>
 </div>
+<div id="new_box">
+
 {% if e|length < 1 %}
 <div class="text-center"><strong> No Event Today</strong> </div>
 {% else %}
 {% for e in e %}
-<div class="event_box">
+<div class="event_box" id="event_box">
     <div>
     <div class="event_date">{{e.event_date}}</div>
     </div>
@@ -550,7 +556,7 @@ border-radius: 50%;
     </div>
     {% endfor %}
 {% endif %}
-
+</div>
 <div>
     <!-- calendar vidio link -> https://youtu.be/B6a068z8Rkk?si=2abUwVyfLOaKLkgG -->
     <div  class="calendar" >
@@ -714,7 +720,22 @@ function booked_date(){
 function check_date(d){
     var m = dt.getMonth()+1;
     var y = dt.getFullYear();
-   console.log(d)
+    var k_id = document.getElementById('karyalay_id').value;
+    $.ajax({
+        url: "{% url 'check_date' %}",
+        method: "GET",
+        data:{
+            k_id:k_id,
+            y:y,
+            m:m,
+            d:d
+            },
+            success: function(res){
+                //console.log(res.data)
+                $("#new_box").html(res.data);
+            }
+
+    })
 }
 
 //////////////////////////////////

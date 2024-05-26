@@ -1,0 +1,45 @@
+<style>
+.nice-card{
+    background-color: rgb(16, 209, 6);
+    width:400px;
+    margin: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: #000000;
+    font-size:20px;
+}
+b{
+    color: white;
+    background-color: rgb(28, 146, 28);
+    border-radius: 10px;
+    padding: 3px;
+}
+.detail{
+    margin-top: 10px;
+}
+</style>
+{% if e|length < 1 %}
+<div class="text-center nice-card">
+<strong>अभिनंदन {{d}} ही तारीख रिकामी आहे</strong><br>
+<strong>कृपया बुक करण्यासाठी</strong><br>
+<div class="detail">
+<b>संपर्क {{k.owner_name_marathi}} {{k.mobile}}</b>
+</div>
+</div>
+{% else %}
+{% for e in e %}
+<div class="event_box">
+    <div>
+    <div class="event_date">{{e.event_date}}</div>
+    </div>
+    <div class="event_iteam">
+    <div class="event_name">{{e.event_name}}</div>
+    <div class="parti_name">{{e.parti_name}}</div>
+    </div>
+    <div class="shere">
+        <a href="https://api.whatsapp.com/send?phone=&text={{e.event_date}},{{e.event_name}},{{e.parti_name}},{{k.karyalay_name_marathi}} , {{k.nearby_location_marathi}}, {{k.address_marathi}} लाईव्ह लोकेशन मॅप व लाईव्ह व्हिडिओ पाहण्यासाठी 👉 https://www.bookkaryalay.com/karyalay_detail/{{k.id}}/" target="_blank">Whatsapp Share</a>
+    </div>
+    </div>
+    {% endfor %}
+{% endif %}
