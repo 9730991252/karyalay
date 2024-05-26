@@ -216,7 +216,46 @@ main{
     gap: 15px;
 
 }
-
+.event_box{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 124, 124, 0.2);
+    width:400px;
+    margin-bottom: 10px;
+    background-color: rgb(252, 87, 87);
+}
+.event_iteam{
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+   
+}
+.event_name{
+    color: rgb(220, 255, 22);
+    font-size: 30px;
+}
+.parti_name{
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+.shere a{
+    font-size: 17px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(66, 190, 66);
+}
+.shere{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end
+    ;margin-right: 10px;
+}
 @media only screen and (max-width: 600px) {
     body{
         width: 365px;
@@ -432,6 +471,48 @@ border-radius: 50%;
     gap: 15px;
 
 }
+
+
+.event_box{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 124, 124, 0.2);
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: rgb(252, 87, 87);
+}
+.event_iteam{
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+   
+}
+.event_name{
+    color: rgb(220, 255, 22);
+    font-size: 30px;
+}
+.parti_name{
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+.shere a{
+    font-size: 17px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(66, 190, 66);
+}
+.shere{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end
+    ;margin-right: 10px;
+}
 }
     </style>
 
@@ -451,6 +532,24 @@ border-radius: 50%;
     </div>
     <div><a href="https://api.whatsapp.com/send?phone=&text={{k.karyalay_name_marathi}} , {{k.nearby_location_marathi}}, {{k.address_marathi}} बुकिंग माहितीसाठी 👉 https://www.bookkaryalay.com/karyalay_detail/{{k.id}}/" target="_blank">Whatsapp Share</a></div>
 </div>
+{% if e|length < 1 %}
+<div class="text-center"><strong> No Event Today</strong> </div>
+{% else %}
+{% for e in e %}
+<div class="event_box">
+    <div>
+    <div class="event_date">{{e.event_date}}</div>
+    </div>
+    <div class="event_iteam">
+    <div class="event_name">{{e.event_name}}</div>
+    <div class="parti_name">{{e.parti_name}}</div>
+    </div>
+    <div class="shere">
+        <a href="https://api.whatsapp.com/send?phone=&text={{e.event_date}},{{e.event_name}},{{e.parti_name}},{{k.karyalay_name_marathi}} , {{k.nearby_location_marathi}}, {{k.address_marathi}} लाईव्ह लोकेशन मॅप व लाईव्ह व्हिडिओ पाहण्यासाठी 👉 https://www.bookkaryalay.com/karyalay_detail/{{k.id}}/" target="_blank">Whatsapp Share</a>
+    </div>
+    </div>
+    {% endfor %}
+{% endif %}
 
 <div>
     <!-- calendar vidio link -> https://youtu.be/B6a068z8Rkk?si=2abUwVyfLOaKLkgG -->
@@ -500,7 +599,7 @@ border-radius: 50%;
 
 {% if u|length < 1 %}
 <div class="video">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/SOw2hSmllT4?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/SOw2hSmllT4?autoplay=1"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <div style="background-color: red;color: white; width: fit-content; margin-left: auto;padding-left: 5px;padding-right: 5px" ><h4 >LIVE</h4></div>
 </div>
 
@@ -545,7 +644,7 @@ border-radius: 50%;
  
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
    
-    document.getElementById('date_str').innerHTML=dt.toDateString();
+    document.getElementById('date_str').innerHTML=dt.getFullYear();
     document.getElementById('month').innerHTML=months[dt.getMonth()];
     var cells = "";
     for ( x = day; x>0; x--){
@@ -553,9 +652,9 @@ border-radius: 50%;
             }
     for ( i = 1; i <= enddate; i++){
         if(i == today.getDate() && dt.getMonth() == today.getMonth() ){
-            cells+= "<div class='active' id="+ "book_d" + i +">" + i + "</div>";     
+            cells+= "<div class='active' onclick='check_date("+ i +" )' id="+ "book_d" + i +">" + i + "</div>";     
         }else{
-            cells+='<div id='+ 'book_d' + i +'>' + i + '</div>';
+            cells+="<div  onclick='check_date("+ i +" )' id="+ "book_d" + i +">" + i + "</div>";     
 
         }
     }
@@ -612,7 +711,11 @@ function booked_date(){
 
 
 
-
+function check_date(d){
+    var m = dt.getMonth()+1;
+    var y = dt.getFullYear();
+   console.log(d)
+}
 
 //////////////////////////////////
 const slides = document.querySelectorAll(".slide")

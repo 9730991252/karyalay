@@ -6,6 +6,7 @@ from camera.models import *
 from django.http import *
 from django.template.loader import render_to_string
 from django.db.models import Q
+from datetime import date
 # Create your views here.
 
 def index(request):
@@ -63,12 +64,16 @@ def karyalay_detail(request,id):
         m=Map.objects.get(karyalay_id=id)
     if request.session.has_key('owner_mobile'):
         owner_mobile = request.session['owner_mobile']
+    today=date.today()
+    e=Event.objects.filter(event_date=today,karyalay_id=id)
     context={
         'k':k,
         'i':i,
         'm':m,
         'owner_mobile':owner_mobile,
-        'u':u
+        'u':u,
+        'e':e,
+
     }
     return render(request,'home/karyalay_detail.html',context )
 
