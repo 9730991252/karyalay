@@ -37,7 +37,7 @@ def add_karyalay(request):
                 owner_name_marathi = owner_name_marathi ,
                 owner_name_english = owner_name_english ,
                 mobile = mobile ,
-                pin = pin ,
+                pin = pin , 
                 ).save()
             return redirect('add_karyalay')
     if 'Edit_Karyalay' in request.POST:

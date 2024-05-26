@@ -42,10 +42,51 @@
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{e.event_name}}</td>
+        <td>{{e.parti_name}}</td>
         <td>{{e.event_date}}</td>
-        <td>Edit</td>
-        
+        <td><a href="" class="text-bg-info p-2"data-bs-toggle="modal" data-bs-target="#Edit_Event_{{e.id}}" >Edit</a></td>
       </tr>
+
+
+<!-- Edit Event -->
+<div class="modal fade" id="Edit_Event_{{e.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form method="POST"> {% csrf_token %}
+            <input type="hidden" name="event_id" value="{{e.id}}" >
+              <br>
+              <div class="mb-3">
+                  <label for="">Event Name</label>
+                <input  name="event_name" id="event_name" value="{{e.event_name}}" placeholder="karyalay name marathi" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                  <label for="">karyalay name eglish</label>
+                  <input  name="parti_name" id="parti_name" value="{{e.parti_name}}" placeholder="karyalay name eglish" class="form-control"  required>
+              </div>
+              <br>
+              <h6>{{e.event_date}}</h6>
+              <div class="mb-3">
+                <label for="date">Select Date</label>
+                <input type="date" name="event_date" id="date"  class="form-control" value="{{e.event_date}}" required>
+            </div>
+              <br>
+              <button type="submit" class="btn btn-primary" name="Edit_Event">Edit</button>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
       {% endfor %}
     
     </tbody>

@@ -2,6 +2,8 @@ from django.shortcuts import render ,redirect
 from sunil.models import *
 from owner.models import *
 from camera.models import *
+from datetime import date
+import datetime
 # Create your views here.
 def owner_dashboard(request):
     if request.session.has_key('owner_mobile'):
@@ -25,7 +27,17 @@ def event(request):
         k=Karyalay.objects.filter(mobile=owner_mobile).first()
         if k:
             k=Karyalay.objects.get(mobile=owner_mobile)
-            e=Event.objects.filter(karyalay_id=k.id).order_by('event_date')
+            e=Event.objects.filter(karyalay_id=k.id,status=1).order_by('event_date')
+        current_time = datetime.datetime.now()
+        d = current_time.day -1
+        m = current_time.month
+        y = current_time.year 
+        date=f"{y}-{m}-{d}"
+        ev = Event.objects.filter(karyalay_id=k.id,event_date__lte=date)
+        if ev :
+            for ev in ev:
+                ev.status = 0
+                ev.save()
         if 'Add_Event'in request.POST:
             event_name = request.POST.get('event_name')
             parti_name = request.POST.get('parti_name')
@@ -37,7 +49,19 @@ def event(request):
                 event_date=event_date,
                 ).save()
             return redirect('/owner/event/')
-    
+        if 'Edit_Event' in request.POST:
+            event_id = request.POST.get('event_id')
+            event_name = request.POST.get('event_name')
+            parti_name = request.POST.get('parti_name')
+            event_date = request.POST.get('event_date')
+            Event(
+                karyalay_id=k.id,
+                id = event_id ,
+                event_name = event_name ,
+                parti_name = parti_name ,
+                event_date = event_date ,
+                ).save()
+            return redirect('/owner/event/')
         context={
             'k':k,
             'e':e

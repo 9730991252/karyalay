@@ -86,7 +86,7 @@ def booked_date(request):
         if m < 10:
             m=f'0{m}'
         d=f"{y}-{m}-"
-        b=Event.objects.values().filter(event_date__icontains=d,karyalay_id=k_id,status=1)
+        b=Event.objects.values().filter(event_date__icontains=d,karyalay_id=k_id)
         book=list(b)
     return JsonResponse({'book':book})
 
@@ -106,7 +106,7 @@ def check_date(request):
         if d < 10:
             d=f'0{d}'
         d=f"{y}-{m}-{d}"
-        e=Event.objects.values().filter(event_date=d,karyalay_id=k_id,status=1)
+        e=Event.objects.values().filter(event_date=d,karyalay_id=k_id)
         print(e)
         context={
             'k':k,
