@@ -54,6 +54,9 @@ def event(request):
             event_name = request.POST.get('event_name')
             parti_name = request.POST.get('parti_name')
             event_date = request.POST.get('event_date')
+            if event_date == '' :
+                ed = Event.objects.get(id=event_id)
+                event_date = ed.event_date
             Event(
                 karyalay_id=k.id,
                 id = event_id ,
