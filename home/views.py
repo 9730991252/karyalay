@@ -17,8 +17,10 @@ def index(request):
     }
 
     return render(request, 'home/index.html',context)
-
-
+def contact_us(request):
+    return render(request, 'home/contact_us.html')
+def about_us(request):
+    return render(request, 'home/about_us.html')
 
 def login(request):
     if request.session.has_key('owner_mobile'):
