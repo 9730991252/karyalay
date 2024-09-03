@@ -5,5 +5,5 @@ import json
 # Create your views here.
 def indraprastha(request, id):
     data = Karyalay.objects.values().filter(id=id).first()
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data)
     
