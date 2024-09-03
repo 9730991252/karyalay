@@ -4,6 +4,6 @@ from django.http import JsonResponse
 import json
 # Create your views here.
 def indraprastha(request, id):
-    data = list(Karyalay.objects.values().filter(id=id).first())
+    data = Karyalay.objects.values().filter(id=id).first()
     return JsonResponse(data, safe=False)
     
