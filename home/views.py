@@ -10,13 +10,14 @@ from datetime import date
 # Create your views here.
 
 def index(request):
+    test(request)
     context=''
-    k=Karyalay.objects.all().order_by('karyalay_name_eglish')
+    k=Karyalay.objects.filter(show_status=1,status=1).order_by('karyalay_name_eglish')
     context={
         'k':k
     }
-
     return render(request, 'home/index.html',context)
+
 def contact_us(request):
     return render(request, 'home/contact_us.html')
 def about_us(request):
@@ -57,7 +58,7 @@ def karyalay_filter(request):
         return JsonResponse({'data': t})
     
 def karyalay_detail(request,id):
-    k=Karyalay.objects.get(id=id)
+    k=Karyalay.objects.get(id=id,show_status=1,status=1)
     i=Images.objects.filter(karyalay_id=id)
     m=Map.objects.filter(karyalay_id=id).first()
     u=You_Tube.objects.filter(karyalay_id=id)
@@ -119,3 +120,8 @@ def check_date(request):
     return JsonResponse({'data': t})
 
 
+def test(request):
+    q='s'
+    a=Event.objects.filter(karyalay__karyalay_name_eglish__icontains=q)
+ 
+    print(a)

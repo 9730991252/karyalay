@@ -537,6 +537,7 @@ border-radius: 50%;
     </div>
     <div><a href="https://api.whatsapp.com/send?phone=&text=निसर्गरम्य अन् शांत वातावरणात %0a भर पडावी तुमच्या आनंदात %0a खास आपल्या लग्न,वाढदिवस,साखरपुडा अन् इतर सर्व समारंभासाठी एकमेव आकर्षक मंगल कार्यालय...... %0a ते सुध्धा अगदी आकर्षक दरात..... %0a मॅप लोकेशन व लाईव्ह व्हिडिओ पुरविण्याची उत्तम व्यवस्था %0a उत्तम अशी पाणी, लाईट, जेवण,  बैठक व्यवस्था, विश्रांती गृह इत्यादींची अतिशय सुंदर व्यवस्था %0a एकदा अवश्य संपर्क साधा....... %0a {{k.karyalay_name_marathi}} %0a {{k.nearby_location_marathi}} %0a {{k.address_marathi}} %0a बुकिंग माहितीसाठी 👉 https://www.bookkaryalay.com/karyalay_detail/{{k.id}}/" target="_blank">Whatsapp Share</a></div>
 </div>
+{% if k.booking_show_status == 1 %}
 <div id="new_box">
 
 {% if e|length < 1 %}
@@ -560,29 +561,32 @@ border-radius: 50%;
 </div>
 <div>
     <!-- calendar vidio link -> https://youtu.be/B6a068z8Rkk?si=2abUwVyfLOaKLkgG -->
-    <div  class="calendar" >
-        <div class="month">
-            <div class="prev" onclick="movemanth('prev')"><span>&#10094</span></div>
-            <div class="">
-                <h2 id="month">June</h2>
-                <p id="date_str"></p>
-            </div>
-            <div class="next" onclick="movemanth('next')"><span>&#10095</span></div>
-        </div>
-        <div class="weekends">
-            <div>रवी</div>
-            <div>सोम</div>
-            <div>मंगळ</div>
-            <div>बुध</div>
-            <div>गुरु</div>
-            <div>शुक्र</div>
-            <div>शनी</div>
-        </div>
-        <div class="days">
 
-        </div>
+     <div  class="calendar" >
+         <div class="month">
+             <div class="prev" onclick="movemanth('prev')"><span>&#10094</span></div>
+             <div class="">
+                 <h2 id="month">June</h2>
+                 <p id="date_str"></p>
+             </div>
+             <div class="next" onclick="movemanth('next')"><span>&#10095</span></div>
+         </div>
+         <div class="weekends">
+             <div>रवी</div>
+             <div>सोम</div>
+             <div>मंगळ</div>
+             <div>बुध</div>
+             <div>गुरु</div>
+             <div>शुक्र</div>
+             <div>शनी</div>
+         </div>
+         <div class="days">
+ 
+         </div>
+ 
+     </div>
+     {% endif %}
 
-    </div>
 </div>
 
 <div class="image_slide" >

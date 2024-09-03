@@ -15,6 +15,9 @@ class Karyalay(models.Model):
     mobile=models.IntegerField(unique=True)
     pin=models.IntegerField()
     status=models.IntegerField(default=1)
+    booking_show_status = models.IntegerField(default=1,null=True)
+    show_status = models.IntegerField(default=1,null=True)
+    jeson_status = models.IntegerField(default=0,null=True)
     date=models.DateField(auto_now_add=True,null=True)
 
 

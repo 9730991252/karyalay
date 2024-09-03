@@ -53,3 +53,5 @@ class Images(models.Model):
 class Map(models.Model):
     karyalay = models.ForeignKey(Karyalay,on_delete=models.PROTECT,null=True)
     map_code=models.CharField(max_length=500)
+
+

@@ -2,7 +2,270 @@
 {% block content %}
 
 <div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+<input type="hidden" value="{{k.id}}" id="karyalay_id" >
 {% include 'include/alert.html' %}
 {% include 'include/owner_menu.html' %}
 
+
+<style>
+*{margin: 0; padding: 0;}
+.calendar{
+        width:400px;
+        margin: auto;
+        background-color: rgb(188, 239, 255);
+        box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.2);
+    }
+    .month{
+         width: 100%;
+         background-color: #ffb76e;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         text-align: center;
+        padding: 10px 20px;
+    }
+    .weekends{
+        background-color: #ffa448;
+        display: flex;
+        padding: 5px 0px ;
+        
+    }
+.weekends div{
+    width: 14.28%;
+    text-align: center;
+    font-weight: 700;
+}
+.days{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 10px 0px;
+}
+.days div{
+    width: 14.28%;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    font-weight: 500;
+    height: 50px;
+    overflow: hidden;
+}
+.today{
+    background-color: #ff9e3d;
+}
+#parti_name{
+    font-size: 11px ;
+    background-color: red ;
+    width: 100% ;
+    color: yellow ;
+    margin-top: -10px ;
+}
+.prev ,.next{
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 23px;
+}
+.prev_date{
+    color: rgb(195, 197, 198);
+}
+.active{
+    background-color: #fdd4ac;
+    border: 3px solid yellow;
+    
+}
+
+.month_div{
+    display: flex;
+    gap: 10px;
+}
+.karyalay_name{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #FF9E3B;
+    box-shadow: inset -1px 0px 10px 0px rgb(112, 112, 112);
+}
+</style>
+
+ 
+
+ 
+<div  class="calendar" >
+    <div class="month">
+        <div class="prev" onclick="movemanth('prev')"><span>&#10094</span></div>
+        <div>
+            <div class="month_div">
+                <h2 id="month">June</h2>
+                <h2 id="date_str"></h2>
+            </div>
+            <div class="karyalay_name">
+                <b>{{k.karyalay_name_eglish}}</b>
+            </div>
+        </div>
+        <div class="next" onclick="movemanth('next')"><span>&#10095</span></div>
+    </div>
+    <div class="weekends">
+        <div>रवी</div>
+        <div>सोम</div>
+        <div>मंगळ</div>
+        <div>बुध</div>
+        <div>गुरु</div>
+        <div>शुक्र</div>
+        <div>शनी</div>
+    </div>
+    <div class="days">
+
+    </div>
+
+</div>
+ 
+
+ 
+
+<script>
+
+
+
+    var dt = new Date();
+    function renderdate(){
+   dt.setDate(1);
+    var day = dt.getDay();
+   
+    var today= new Date();
+    var enddate= new Date(dt.getFullYear(),dt.getMonth() + 1 ,0).getDate();
+    var prevdate= new Date(dt.getFullYear(),dt.getMonth() ,0).getDate();
+ 
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+   
+    document.getElementById('date_str').innerHTML=dt.getFullYear();
+    document.getElementById('month').innerHTML=months[dt.getMonth()];
+    var cells = "";
+    for ( x = day; x>0; x--){
+        cells+= "<div class='prev_date'>" + ( prevdate - x + 1) + "</div>";
+            }
+    for ( i = 1; i <= enddate; i++){
+        if(i == today.getDate() && dt.getMonth() == today.getMonth() ){
+            cells+= "<div class='active' onclick='check_date("+ i +" )' id="+ "book_d" + i +">" + i + "</div>";     
+        }else{
+            cells+="<div  onclick='check_date("+ i +" )' id="+ "book_d" + i +">" + i + "</div>";     
+
+        }
+    }
+    document.getElementsByClassName('days')[0].innerHTML=cells;
+}
+function movemanth(para){
+    if(para == 'next' &  dt.getFullYear() < 2026){
+        dt.setMonth(dt.getMonth() + 1 );
+    }
+    else if(para == 'prev' & dt.getFullYear() > 2023  ){
+        dt.setMonth(dt.getMonth() - 1 );
+
+    }renderdate()
+    booked_date()
+    
+    }
+
+renderdate()
+
+
+
+
+
+booked_date()
+
+function booked_date(){
+    var k_id = document.getElementById('karyalay_id').value;
+    var y = dt.getFullYear();
+    var m = dt.getMonth()+1;
+    //console.log(m)
+    
+    $.ajax({
+        url: "{% url 'booked_date' %}",
+        method: "GET",
+        data:{
+            k_id:k_id,
+            y:y,
+            m:m,
+      
+            },
+            success: function(data){
+                for(let key=0; key<data.book.length;key++){
+                    i=data.book[key].event_date
+                    nd=new Date(i)
+                    nb=nd.getDate()
+                
+                    document.getElementById('book_d'+nb).innerHTML=`<div id='parti_name'>${nb}<br><h>${data.book[key].parti_name}<h></div>`;
+
+                }
+
+            }
+    })
+ }
+
+
+
+function check_date(d){
+    var m = dt.getMonth()+1;
+    var y = dt.getFullYear();
+    var k_id = document.getElementById('karyalay_id').value;
+    $.ajax({
+        url: "{% url 'check_date' %}",
+        method: "GET",
+        data:{
+            k_id:k_id,
+            y:y,
+            m:m,
+            d:d
+            },
+            success: function(res){
+                //console.log(res.data)
+                $("#new_box").html(res.data);
+            }
+
+    })
+}
+
+//////////////////////////////////
+const slides = document.querySelectorAll(".slide")
+var counter=0;
+
+slides.forEach((slide,index)=>{
+    slide.style.left = `${index * 100}%`
+})
+
+const gonext =()=>{
+    counter++;
+    if(counter == slides.length){
+        counter = 0;
+    }
+    slideimage()
+}
+const goprev =()=>{
+    counter--;
+    if(counter == -1){
+        counter = slides.length-1;
+    }
+    slideimage()
+}
+
+
+
+
+const slideimage = () =>{
+    slides.forEach((slide)=>{
+        console.log(slide)
+        slide.style.transform =`translateX(-${counter * 100}%)`
+    })
+}
+
+      
+</script>
+
+ 
 {% endblock content %}

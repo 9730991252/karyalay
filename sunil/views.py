@@ -4,7 +4,6 @@ from django.contrib import messages
 # Create your views here.
 
 def sunil_dashboard(request):
-   
     return render(request,'sunil/sunil_dashboard.html')
 
 

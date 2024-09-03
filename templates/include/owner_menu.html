@@ -1,14 +1,22 @@
 <style>
-.btn {
+.button {
 margin-bottom: 10px;
+display: flex;
+overflow: scroll;
+gap: 10px;
+}
+a{
+    white-space: nowrap;
+    width: fit-content;
 }
 </style>
 
-<div class="btn">
-    <a class="btn btn-primary" href="{% url 'event' %}">Add Event </a>
-    <a class="btn btn-primary" href="{% url 'video' %}">You Tube Video Url</a>
-    <a class="btn btn-primary" href="{% url 'images' %}">Images </a>
-    <a class="btn btn-primary" href="{% url 'map' %}">Map </a>
-    <a class="btn btn-primary" href="{% url 'index' %}">Home </a>
+<div class="button">
+    <a class="btn {% if request.path == '/owner/owner_dashboard/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'owner_dashboard' %}">Home </a>
+    <a class="btn {% if request.path == '/owner/event/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'event' %}">Add Event </a>
+    <a class="btn {% if request.path == '/owner/video/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'video' %}">You Tube Video Url</a>
+    <a class="btn {% if request.path == '/owner/images/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'images' %}">Images </a>
+    <a class="btn {% if request.path == '/owner/map/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'map' %}">Map </a>
+    <a class="btn {% if request.path == '/owner/profile/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'profile' %}">Profile</a>
     <a class="btn btn-danger" href="{% url 'woner_logout' %}">Logout</a>
 </div>

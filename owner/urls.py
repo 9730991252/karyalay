@@ -9,5 +9,6 @@ urlpatterns = [
     path('map/', views.map,name='map'),    
     path('video/', views.video,name='video'),
     path('woner_logout/', views.woner_logout,name='woner_logout'),    
+    path('profile/', views.profile,name='profile'),    
     
 ]

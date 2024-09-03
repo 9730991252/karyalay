@@ -17,7 +17,7 @@ def owner_dashboard(request):
             }
         return render(request,'owner/owner_dashboard.html',context)
     else:
-        return redirect('/login')
+        return redirect('/login/')
 
 
 def event(request):
@@ -72,7 +72,7 @@ def event(request):
         
         return render(request,'owner/event.html',context)
     else:
-        return redirect('/login')
+        return redirect('/login/')
     
 
 def video(request):
@@ -114,7 +114,7 @@ def video(request):
         
         return render(request,'owner/video.html',context)
     else:
-        return redirect('/login')
+        return redirect('/login/')
 
 
 def map(request):
@@ -138,7 +138,7 @@ def map(request):
         
         return render(request,'owner/map.html',context)
     else:
-        return redirect('/login')
+        return redirect('/login/')
     
 
 def images(request):
@@ -174,9 +174,46 @@ def images(request):
         
         return render(request,'owner/imges.html',context)
     else:
-        return redirect('/login')
+        return redirect('/login/')
     
 
+def profile(request):
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
+        context={}
+        k=Karyalay.objects.filter(mobile=owner_mobile).first()
+        if k:
+            k=Karyalay.objects.get(mobile=owner_mobile)
+            if 'edit_profile'in request.POST:
+                new_pin = request.POST.get('pin')
+                if new_pin:
+                    if new_pin != k.pin:
+                        k.pin=new_pin
+                        k.save()
+                        del  request.session['owner_mobile']
+                        return redirect('/owner/profile/')
+            elif 'show'in request.POST:
+                k.booking_show_status = 0
+                k.save()
+                return redirect('/owner/profile/')
+            elif 'hide'in request.POST:
+                k.booking_show_status = 1
+                k.save()
+                return redirect('/owner/profile/')
+            elif 'karyalay_show'in request.POST:
+                k.show_status = 0
+                k.save()
+                return redirect('/owner/profile/')
+            elif 'karyalay_hide'in request.POST:
+                k.show_status = 1
+                k.save()
+                return redirect('/owner/profile/')
+        context={
+            'k':k
+            }
+        return render(request,'owner/profile.html',context)
+    else:
+        return redirect('/login/')
 
 
 
@@ -185,5 +222,6 @@ def images(request):
 
 
 def woner_logout(request):
-    del  request.session['owner_mobile']
+    if request.session.has_key('owner_mobile'):
+        del  request.session['owner_mobile']
     return redirect('/')
