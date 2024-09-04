@@ -6,5 +6,5 @@ import json
 def indraprastha(request, id):
     data_raw = Karyalay.objects.values().filter(id=id)
     data=list(data_raw)
-    return JsonResponse(data,safe=False)
+    return JsonResponse({'data':data,})
     
