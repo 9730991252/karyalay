@@ -12,6 +12,7 @@ def indraprastha(request,k_id,m,y):
             m=f'0{m}'
         d=f"{y}-{m}-"
         b=Event.objects.values().filter(event_date__icontains=d,karyalay_id=k_id)
-        book=list(b)
+        if b:
+            book=list(b)
     return JsonResponse({'book':book})
          
