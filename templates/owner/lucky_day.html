@@ -1,0 +1,76 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+<!-- * style -->
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+</style>
+<!-- end * style -->
+
+<!--* media screen style *-->
+<style media="only screen and (max-width: 500px)">
+    .col-2{
+        display: none;
+    }
+    .col-10{
+        width: 100%;
+    }
+</style>
+<!-- end media screen style -->
+
+<div class="container">
+    <div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
+</div>
+
+<div class="container">
+            {% include 'include/owner_menu.html' %}  
+            {% include 'include/alert.html' %}
+            <!--* Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add_Lucky_Day">
+                Add Lucky Day
+            </button>
+            <!-- end Button trigger modal -->
+            <table class="table">
+                <thead>
+                  <tr>
+                      <th scope="col">Lucky Day</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for l in lucky_day %}
+                    <tr>
+                        <td>{{l.lucky_day}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="Add_Lucky_Day" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Lucky Day</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">{% csrf_token %}
+                <label>Select Date</label>
+                <input type="date" name="date" class="form-control mb-2" required>
+                <button type="submit" class="btn btn-primary border" name="Add_lucky_day">Add</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

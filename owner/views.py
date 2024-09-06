@@ -2,8 +2,7 @@ from django.shortcuts import render ,redirect
 from sunil.models import *
 from owner.models import *
 from camera.models import *
-from datetime import date
-import datetime
+from datetime import datetime, timedelta , date
 from django.contrib import messages
 # Create your views here.
 def owner_dashboard(request):
@@ -219,6 +218,40 @@ def profile(request):
     else:
         return redirect('/login/')
 
+
+
+def lucky_day(request):
+    if request.session.has_key('owner_mobile'):
+        owner_mobile = request.session['owner_mobile']
+        context={}
+        k=Karyalay.objects.filter(mobile=owner_mobile).first()
+        if k:
+            if 'Add_lucky_day'in request.POST:
+                form_date = request.POST.get('date')
+                today_date = date.today()
+                if form_date >= str(today_date) :
+                    dt = datetime.strptime(form_date, '%Y-%m-%d').date()
+                    if Lucky_day.objects.filter(lucky_day=form_date).exists():
+                        messages.warning(request,"Lucky Day Already Exists ") 
+                    else:
+                        Lucky_day(
+                            karyalay_id = k.id,
+                            lucky_day = form_date,
+                            month = dt.month,
+                            year = dt.year,
+                            status = 1,
+                        ).save()
+                        return redirect('/owner/lucky_day/')
+                else:
+                    messages.warning(request,"please Select Future Lucky Day")            
+        context={
+            'k':k,
+            'lucky_day':Lucky_day.objects.filter(status=1).order_by('lucky_day')
+        }
+        return render(request, 'owner/lucky_day.html', context)
+    else:
+        return redirect('login')
+    
 
 
 

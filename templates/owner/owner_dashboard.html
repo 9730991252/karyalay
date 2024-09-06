@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="m-3">हार्दीक स्वागत  {{k.karyalay_name_marathi}} Mr. {{k.owner_name_marathi}}</div>
-<input type="hidden" value="{{k.id}}" id="karyalay_id" >
+<input type="hidden" value="{{k.id}}" id="k_id" >
 {% include 'include/alert.html' %}
 {% include 'include/owner_menu.html' %}
 
@@ -92,6 +92,14 @@ font-size: 23px;
     background-color: #FF9E3B;
 
 }
+.font_style{
+        font-weight: 500;
+        color: black;
+    }
+    .luck{
+        background-color: rgb(47, 255, 28);
+        border: 1px solid rgb(2, 151, 2);
+    }
 </style>
 
  
@@ -137,7 +145,7 @@ font-size: 23px;
     function renderdate(){
    dt.setDate(1);
     var day = dt.getDay();
-   
+    var k_id = document.getElementById('k_id').value;
     var today= new Date();
     var enddate= new Date(dt.getFullYear(),dt.getMonth() + 1 ,0).getDate();
     var prevdate= new Date(dt.getFullYear(),dt.getMonth() ,0).getDate();
@@ -181,7 +189,7 @@ renderdate()
 booked_date()
 
 function booked_date(){
-    var k_id = document.getElementById('karyalay_id').value;
+    var k_id = document.getElementById('k_id').value;
     var y = dt.getFullYear();
     var m = dt.getMonth()+1;
     //console.log(m)
@@ -214,7 +222,7 @@ function booked_date(){
 function check_date(d){
     var m = dt.getMonth()+1;
     var y = dt.getFullYear();
-    var k_id = document.getElementById('karyalay_id').value;
+    var k_id = document.getElementById('k_id').value;
     $.ajax({
         url: "{% url 'check_date' %}",
         method: "GET",
@@ -230,42 +238,33 @@ function check_date(d){
             }
 
     })
-}
+} search_lucky_day()
+function search_lucky_day(){
+    var k_id = document.getElementById('k_id').value;
+        $.ajax({
+            url: "{% url 'search_lucky_day' %}",
+            method: "GET",
+            data:{
+                k_id:k_id,
+                year:dt.getFullYear(),
+                month:dt.getMonth()+1
+            },
+            success: function(data){console.log(data.lucky_day.length)
+                    for(let key=0; key<data.lucky_day.length; key++){
+                        i=data.lucky_day[key].lucky_day
+                        nd = new Date(i)
+                        ld=nd.getDate()
+                        document.getElementById('book_d'+ld).className='luck font_style';
+                        
+                    }
+                }
+        })
 
-//////////////////////////////////
-const slides = document.querySelectorAll(".slide")
-var counter=0;
+        }
+    
 
-slides.forEach((slide,index)=>{
-    slide.style.left = `${index * 100}%`
-})
+        search_lucky_day()
 
-const gonext =()=>{
-    counter++;
-    if(counter == slides.length){
-        counter = 0;
-    }
-    slideimage()
-}
-const goprev =()=>{
-    counter--;
-    if(counter == -1){
-        counter = slides.length-1;
-    }
-    slideimage()
-}
-
-
-
-
-const slideimage = () =>{
-    slides.forEach((slide)=>{
-        console.log(slide)
-        slide.style.transform =`translateX(-${counter * 100}%)`
-    })
-}
-
-      
 </script>
 
  

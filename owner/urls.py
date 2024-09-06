@@ -10,5 +10,5 @@ urlpatterns = [
     path('video/', views.video,name='video'),
     path('woner_logout/', views.woner_logout,name='woner_logout'),    
     path('profile/', views.profile,name='profile'),    
-    
+    path('lucky_day/', views.lucky_day, name='lucky_day'),
 ]

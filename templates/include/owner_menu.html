@@ -14,6 +14,7 @@ a{
 <div class="button">
     <a class="btn {% if request.path == '/owner/owner_dashboard/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'owner_dashboard' %}">Home </a>
     <a class="btn {% if request.path == '/owner/event/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'event' %}">Add Event </a>
+    <a  href="{% url 'lucky_day' %}" class="my-1 {% if request.path == '/owner/lucky_day/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Lucky Day</a>
     <a class="btn {% if request.path == '/owner/video/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'video' %}">You Tube Video Url</a>
     <a class="btn {% if request.path == '/owner/images/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'images' %}">Images </a>
     <a class="btn {% if request.path == '/owner/map/' %}btn btn-warning{% else %}btn btn-primary{% endif %}" href="{% url 'map' %}">Map </a>

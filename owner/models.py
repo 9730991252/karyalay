@@ -55,3 +55,10 @@ class Map(models.Model):
     map_code=models.CharField(max_length=500)
 
 
+class Lucky_day(models.Model):
+    karyalay = models.ForeignKey(Karyalay,on_delete=models.PROTECT,null=True)
+    added_date = models.DateTimeField(auto_now_add=True, null=True)
+    lucky_day = models.DateField()
+    month = models.IntegerField()
+    year = models.IntegerField()
+    status = models.IntegerField()
