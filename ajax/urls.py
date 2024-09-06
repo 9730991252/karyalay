@@ -3,5 +3,5 @@ from ajax import views
 
 
 urlpatterns = [
-    path('indraprastha/<int:id>', views.indraprastha,name='indraprastha'),    
+    path('indraprastha', views.indraprastha,name='indraprastha'),    
 ]
