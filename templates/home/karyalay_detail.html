@@ -585,65 +585,11 @@ border-radius: 50%;
          </div>
  
      </div>
-     {% endif %}
+     
+    </div>
 
-</div>
-
-<div class="image_slide" >
-        {% if i|length < 0 %}
-        No Images
-        {% else %}
-       
-    <main> {% for i in i %}
-        <img src="{{i.image_1.url}}" class="slide" alt="Karyalay Images">
-        <img src="{{i.image_2.url}}" class="slide" alt="Karyalay Images">
-        <img src="{{i.image_3.url}}" class="slide" alt="Karyalay Images">
-        <img src="{{i.image_4.url}}" class="slide" alt="Karyalay Images">
-        <img src="{{i.image_5.url}}" class="slide" alt="Karyalay Images">
-        <button class="goprev" onclick="goprev()">&#10094</button>
-        <button class="gonext" onclick="gonext()">&#10095</button>
-        {% endfor %}
-    </main>
-    {% endif %}
-
-</div>
-
-{% if u|length < 1 %}
-<div class="video">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/SOw2hSmllT4"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <div style="background-color: red;color: white; width: fit-content; margin-left: auto;padding-left: 5px;padding-right: 5px" ><h4 >LIVE</h4></div>
-</div>
-
-
-{% else %}
-
-<div class="container text-center mt-3">
-{% for u in u %}
-{% video u.url_1 '335x200' %}
-<div style="background-color: red;color: white; width: fit-content; margin-left: auto;padding-left: 5px;padding-right: 5px" ><h4 >LIVE</h4></div>
-<br>
-
-{% video u.url_2 '335x200' %}
-{% endfor %}
-  </div>
-{% endif %}
-
-
-
-<div class="map" >
-    
-    {{m.map_code | safe }}
-
-</div>
-
-
-
-
-
-
-<script>
-
-
+    <script>
+        
 
     var dt = new Date();
     function renderdate(){
@@ -743,6 +689,64 @@ function check_date(d){
 
     })
 }
+    </script>
+    {% endif %}
+
+<div class="image_slide" >
+        {% if i|length < 0 %}
+        No Images
+        {% else %}
+       
+    <main> {% for i in i %}
+        <img src="{{i.image_1.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_2.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_3.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_4.url}}" class="slide" alt="Karyalay Images">
+        <img src="{{i.image_5.url}}" class="slide" alt="Karyalay Images">
+        <button class="goprev" onclick="goprev()">&#10094</button>
+        <button class="gonext" onclick="gonext()">&#10095</button>
+        {% endfor %}
+    </main>
+    {% endif %}
+
+</div>
+
+{% if u|length < 1 %}
+<div class="video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/SOw2hSmllT4"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div style="background-color: red;color: white; width: fit-content; margin-left: auto;padding-left: 5px;padding-right: 5px" ><h4 >LIVE</h4></div>
+</div>
+
+
+{% else %}
+
+<div class="container text-center mt-3">
+{% for u in u %}
+{% video u.url_1 '335x200' %}
+<div style="background-color: red;color: white; width: fit-content; margin-left: auto;padding-left: 5px;padding-right: 5px" ><h4 >LIVE</h4></div>
+<br>
+
+{% video u.url_2 '335x200' %}
+{% endfor %}
+  </div>
+{% endif %}
+
+
+
+<div class="map" >
+    
+    {{m.map_code | safe }}
+
+</div>
+
+
+
+
+
+
+<script>
+
+
 
 //////////////////////////////////
 const slides = document.querySelectorAll(".slide")
