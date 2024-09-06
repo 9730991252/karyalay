@@ -1,6 +1,6 @@
 from django.db import models
 from sunil.models import *
-from PIL import Image
+from PIL import Image 
 
 # Create your models here.
 class Event(models.Model):

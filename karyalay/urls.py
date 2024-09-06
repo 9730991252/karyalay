@@ -24,4 +24,5 @@ urlpatterns = [
     path('owner/', include('owner.urls')),
     path('camera/', include('camera.urls')),
     path('ajax/', include('ajax.urls')),
+    path('api/', include('ajax.api.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
