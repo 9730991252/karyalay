@@ -4,6 +4,7 @@ from owner.models import *
 from camera.models import *
 from datetime import date
 import datetime
+from django.contrib import messages
 # Create your views here.
 def owner_dashboard(request):
     if request.session.has_key('owner_mobile'):
@@ -32,8 +33,8 @@ def event(request):
         d = current_time.day -1
         m = current_time.month
         y = current_time.year 
-        date=f"{y}-{m}-{d}"
-        ev = Event.objects.filter(karyalay_id=k.id,event_date__lte=date)
+        date_f=f"{y}-{m}-{d}"
+        ev = Event.objects.filter(karyalay_id=k.id,event_date__lte=date_f)
         if ev :
             for ev in ev:
                 ev.status = 0
@@ -42,13 +43,16 @@ def event(request):
             event_name = request.POST.get('event_name')
             parti_name = request.POST.get('parti_name')
             event_date = request.POST.get('event_date')
-            Event(
-                karyalay_id=k.id,
-                event_name=event_name,
-                parti_name=parti_name,
-                event_date=event_date,
-                ).save()
-            return redirect('/owner/event/')
+            if event_date >= str(date.today()):
+                Event(
+                    karyalay_id=k.id,
+                    event_name=event_name,
+                    parti_name=parti_name,
+                    event_date=event_date,
+                    ).save()
+                return redirect('/owner/event/')
+            else:
+                messages.warning(request,"please Select Future Event Day") 
         if 'Edit_Event' in request.POST:
             event_id = request.POST.get('event_id')
             event_name = request.POST.get('event_name')
